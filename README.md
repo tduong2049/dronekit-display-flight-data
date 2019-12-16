@@ -1,3 +1,15 @@
+# Install Dronekit and Dronekit-SITL on Windows:
+```
+py -2 -m pip install dronekit
+py -2 -m pip install dronekit-sitl
+```
+
+# Install Dronekit and Dronekit-SITL on Linux:
+```
+python -m pip install dronekit
+python -m pip install dronekit-sitl
+```
+
 # How to run on Windows:
 ```
 py -2 .\flight_data_display.py
