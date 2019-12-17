@@ -1,11 +1,15 @@
+
 from dronekit import connect, VehicleMode, LocationGlobalRelative
+import dronekit_sitl
 import time
 
-drone_address = "/dev/ttyS0"
+# Start SITL and store its address in a string variable
+sitl = dronekit_sitl.start_default()
+drone_address = sitl.connection_string()
 
 # Create a drone object after connecting to the address of the drone
 print "Connecting to drone on: " + drone_address
-drone = connect(drone_address, baud = 921600, wait_ready = True)
+drone = connect(drone_address, wait_ready = True)
 
 # Sets the drone to GUIDED mode
 print "\nSetting drone to GUIDED mode now..."
@@ -47,4 +51,6 @@ except KeyboardInterrupt:
 # Close vehicle object before exiting script
 drone.close()
 
+# Shut down simulator
+sitl.stop()
 print("Completed")
