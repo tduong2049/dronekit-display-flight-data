@@ -34,10 +34,23 @@ targetAltitude = 10.0
 print "\nTarget altitude of " + str(targetAltitude) + "m has been set."
 drone.simple_takeoff(targetAltitude)
 
+outputFile = open("output.txt", "w+")
+print "\nWriting ouput to 'output.txt'"
+print "Press [CTRL + C] to stop recording data and end flight."
+
 # Loop for displaying the drone's lat, long, alt, pitch, yaw, and roll
 # can be broken when user presses CTRL + C
 try:
     while True:
+        outputFile.write("\nLatitude: \t" + str(drone.location.global_relative_frame.lat))
+        outputFile.write("\nLongitude: \t" + str(drone.location.global_relative_frame.lon))
+        outputFile.write("\nAltitude: \t" + str(drone.location.global_relative_frame.alt))
+        outputFile.write("\nPitch: \t\t" + str(drone.attitude.pitch))
+        outputFile.write("\nYaw: \t\t" + str(drone.attitude.yaw))
+        outputFile.write("\nRoll: \t\t" + str(drone.attitude.roll))
+        outputFile.write("\n________________________________________")
+        
+        '''
         print "\nLatitude: " + str(drone.location.global_relative_frame.lat)
         print "Longitude: " + str(drone.location.global_relative_frame.lon)
         print "Altitude: " + str(drone.location.global_relative_frame.alt)
@@ -45,8 +58,11 @@ try:
         print "Yaw: " + str(drone.attitude.yaw)
         print "Roll: " + str(drone.attitude.roll)
         print "________________________________________"
+        '''
 except KeyboardInterrupt:
     pass
+
+outputFile.close()
 
 # Close vehicle object before exiting script
 drone.close()
