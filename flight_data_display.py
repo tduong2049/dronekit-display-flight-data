@@ -39,20 +39,25 @@ drone.simple_takeoff(targetAltitude)
 
 print "\nConnected to the drone on: " + drone_address
 print "Press [CTRL + C] to stop recording data and end flight.\n"
-iteration = 0
-startTime = time.time()
+iteration = 1
+totalIteration = 1000
 
 try:
-    while iteration < 1000:
-        outputFile.write("\n" + str(drone.location.global_relative_frame.lat) + ', ')
-        outputFile.write(str(drone.location.global_relative_frame.lon)+ ', ')
-        outputFile.write(str(drone.location.global_relative_frame.alt)+ ', ')
+    while iteration <= totalIteration:
+        if iteration == 1:
+            outputFile.write(str(drone.location.global_relative_frame.lat) + ', ')
+        else:
+            outputFile.write('\n' + str(drone.location.global_relative_frame.lat) + ', ')
+
+        outputFile.write(str(drone.location.global_relative_frame.lon) + ', ')
+        outputFile.write(str(drone.location.global_relative_frame.alt) + ', ')
         outputFile.write(str(drone.attitude.pitch) + ', ')
         outputFile.write(str(drone.attitude.yaw) + ', ')
         outputFile.write(str(drone.attitude.roll))
-        iteration += 1
 
         print "Completed Iteration: " + str(iteration)
+        iteration += 1
+
         time.sleep(0.0025)
         
         '''
@@ -73,4 +78,4 @@ outputFile.close()
 # Close vehicle object before exiting script
 drone.close()
 
-print("Completed")
+print("Completed data gathering.")

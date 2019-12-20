@@ -43,22 +43,25 @@ drone.simple_takeoff(targetAltitude)
 
 print "\nConnected to the drone on: " + drone_address
 print "Press [CTRL + C] to stop recording data and end flight.\n"
-iteration = 0
-startTime = time.time()
+iteration = 1
+totalIteration = 1000
 
-# Loop for displaying the drone's lat, long, alt, pitch, yaw, and roll
-# can be broken when user presses CTRL + C
 try:
-    while iteration < 1000:
-        outputFile.write("\n" + str(drone.location.global_relative_frame.lat) + ', ')
-        outputFile.write(str(drone.location.global_relative_frame.lon)+ ', ')
-        outputFile.write(str(drone.location.global_relative_frame.alt)+ ', ')
+    while iteration <= totalIteration:
+        if iteration == 1:
+            outputFile.write(str(drone.location.global_relative_frame.lat) + ', ')
+        else:
+            outputFile.write('\n' + str(drone.location.global_relative_frame.lat) + ', ')
+
+        outputFile.write(str(drone.location.global_relative_frame.lon) + ', ')
+        outputFile.write(str(drone.location.global_relative_frame.alt) + ', ')
         outputFile.write(str(drone.attitude.pitch) + ', ')
         outputFile.write(str(drone.attitude.yaw) + ', ')
         outputFile.write(str(drone.attitude.roll))
+        print "Completed Iteration: " + str(iteration)
+
         iteration += 1
 
-        print "Completed Iteration: " + str(iteration)
         time.sleep(0.0025)
         
         '''
@@ -80,4 +83,4 @@ drone.close()
 
 # Shut down simulator
 sitl.stop()
-print("Completed")
+print("Completed data gathering.")
