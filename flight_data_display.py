@@ -42,6 +42,9 @@ print "Press [CTRL + C] to stop recording data and end flight.\n"
 iteration = 1
 totalIteration = 1000
 
+# For each iteration, write the drone's current latitude, longitude,
+# altitude, pitch, yaw, and roll to the file at a frequency of 400Hz
+# (Pixhawk's update rate)
 try:
     while iteration <= totalIteration:
         if iteration == 1:
